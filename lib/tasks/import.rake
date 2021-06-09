@@ -27,8 +27,9 @@ namespace :import do
       new_work_order = WorkOrder.new
       new_work_order.technician_id = row["technician_id"].to_i
       new_work_order.location_id = row["location_id"].to_i
-      new_work_order.time = row["time"]
+      new_work_order.time = DateTime.strptime(row["time"], "%m/%d/%y %k:%M")
       new_work_order.duration = row["duration"]
+      new_work_order.end_time = new_work_order.time + (new_work_order.duration * 60)
       new_work_order.price = row["price"].to_i
       new_work_order.save
     end
