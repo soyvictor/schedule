@@ -1,0 +1,302 @@
+// Place all the styles related to the work_orders controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+@media screen and (min-width:700px) {
+
+  html.swal2-shown {
+    overflow-y: scroll;
+  }
+
+  body {
+    padding-right: 15px !important;
+  }
+
+  #page-heading {
+    margin-bottom: 24px;
+  }
+
+  h2 {
+    font-family: 'Roboto', sans-serif;
+  }
+
+  #schedule-heading {
+    margin-bottom: 32px;
+  }
+
+  .empty-slot {
+    cursor: pointer;
+  }
+
+  .transparent {
+    opacity: 0.9;
+    border: 1px solid white;
+    position: relative;
+    left: 8px;
+  }
+  .schedule {
+    font-family: 'Roboto', sans-serif;
+    display: grid;
+    grid-gap: 1em;
+    grid-template-rows:
+      [name-headings] auto
+      [time-0600] auto
+      [time-0605] auto
+      [time-0610] auto
+      [time-0615] auto
+      [time-0620] auto
+      [time-0625] auto
+      [time-0630] auto
+      [time-0635] auto
+      [time-0640] auto
+      [time-0645] auto
+      [time-0650] auto
+      [time-0655] auto
+      [time-0700] auto
+
+      [time-0705] auto
+      [time-0710] auto
+      [time-0715] auto
+      [time-0720] auto
+      [time-0725] auto
+      [time-0730] auto
+      [time-0735] auto
+      [time-0740] auto
+      [time-0745] auto
+      [time-0750] auto
+      [time-0755] auto
+      [time-0800] auto
+
+      [time-0805] auto
+      [time-0810] auto
+      [time-0815] auto
+      [time-0820] auto
+      [time-0825] auto
+      [time-0830] auto
+      [time-0835] auto
+      [time-0840] auto
+      [time-0845] auto
+      [time-0850] auto
+      [time-0855] auto
+      [time-0900] auto
+
+      [time-0905] auto
+      [time-0910] auto
+      [time-0915] auto
+      [time-0920] auto
+      [time-0925] auto
+      [time-0930] auto
+      [time-0935] auto
+      [time-0940] auto
+      [time-0945] auto
+      [time-0950] auto
+      [time-0955] auto
+      [time-1000] auto
+
+      [time-1005] auto
+      [time-1010] auto
+      [time-1015] auto
+      [time-1020] auto
+      [time-1025] auto
+      [time-1030] auto
+      [time-1035] auto
+      [time-1040] auto
+      [time-1045] auto
+      [time-1050] auto
+      [time-1055] auto
+      [time-1100] auto
+
+      [time-1105] auto
+      [time-1110] auto
+      [time-1115] auto
+      [time-1120] auto
+      [time-1125] auto
+      [time-1130] auto
+      [time-1135] auto
+      [time-1140] auto
+      [time-1145] auto
+      [time-1150] auto
+      [time-1155] auto
+      [time-1200] auto
+
+      [time-1205] auto
+      [time-1210] auto
+      [time-1215] auto
+      [time-1220] auto
+      [time-1225] auto
+      [time-1230] auto
+      [time-1235] auto
+      [time-1240] auto
+      [time-1245] auto
+      [time-1250] auto
+      [time-1255] auto
+      [time-1300] auto
+
+      [time-1305] auto
+      [time-1310] auto
+      [time-1315] auto
+      [time-1320] auto
+      [time-1325] auto
+      [time-1330] auto
+      [time-1335] auto
+      [time-1340] auto
+      [time-1345] auto
+      [time-1350] auto
+      [time-1355] auto
+      [time-1400] auto
+
+      [time-1405] auto
+      [time-1410] auto
+      [time-1415] auto
+      [time-1420] auto
+      [time-1425] auto
+      [time-1430] auto
+      [time-1435] auto
+      [time-1440] auto
+      [time-1445] auto
+      [time-1450] auto
+      [time-1455] auto
+      [time-1500] auto
+
+      [time-1505] auto
+      [time-1510] auto
+      [time-1515] auto
+      [time-1520] auto
+      [time-1525] auto
+      [time-1530] auto
+      [time-1535] auto
+      [time-1540] auto
+      [time-1545] auto
+      [time-1550] auto
+      [time-1555] auto
+      [time-1600] auto
+
+      [time-1605] auto
+      [time-1610] auto
+      [time-1615] auto
+      [time-1620] auto
+      [time-1625] auto
+      [time-1630] auto
+      [time-1635] auto
+      [time-1640] auto
+      [time-1645] auto
+      [time-1650] auto
+      [time-1655] auto
+      [time-1700] auto
+
+      [time-1705] auto
+      [time-1710] auto
+      [time-1715] auto
+      [time-1720] auto
+      [time-1725] auto
+      [time-1730] auto
+      [time-1735] auto
+      [time-1740] auto
+      [time-1745] auto
+      [time-1750] auto
+      [time-1755] auto
+      [time-1800] auto;
+
+
+    grid-template-columns:
+      [times] 4em
+      [track-1-start] 1fr
+      [track-1-end track-2-start] 1fr
+      [track-2-end track-3-start] 1fr
+      [track-3-end track-4-start] 1fr
+      [track-4-end];
+  }
+}
+
+.time-slot {
+  grid-column: times;
+}
+
+.session {
+  margin-bottom:  1em;
+}
+
+@supports(display:grid) {
+  @media screen and (min-width:700px) {
+    .name-slot {
+      display: block;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      padding: 10px 5px 5px;
+      background-color: rgba(255,255,255,.9);
+    }
+
+    .session {
+      margin: 0;
+    }
+  }
+}
+
+// Small screens
+@media screen and (max-width: 700px) {
+  .time-slot {
+    display: none;
+  }
+}
+
+// Styling
+
+body {
+  padding: 50px;
+  max-width: 1100px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+.session {
+  padding: .5em;
+  border-radius: 4px;
+  font-size: 14px;
+  box-shadow: #BDCAEE 1px 1px 4px, rgba(0,0,0,.1) 4px 4px 4px;
+}
+
+.session-title,
+.session-time,
+.session-duration,
+.session-price {
+  display: block;
+}
+
+.session-title,
+.time-slot {
+  margin: 0;
+  font-size: 1em;
+  font-weight: 500;
+}
+
+.name-slot,
+.time-slot {
+  font-weight: 800;
+  font-size: .9em;
+  color: #868FA2;
+}
+
+.name-slot {
+  color: #595959;
+}
+
+.track-1 {
+  background-color: rgba(69, 152, 230, .5);
+  color: #18324C;
+}
+
+.track-2 {
+  background-color: rgba(33, 191, 184, .5);
+  color: #0F4E4C;
+}
+
+.track-3 {
+  background-color: rgba(168, 111, 232, .5);
+  color: #392652;
+}
+
+.track-4 {
+  background-color: rgba(244, 98, 99, .7);
+  color: #5B2828;
+}

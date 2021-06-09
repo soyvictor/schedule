@@ -1,0 +1,57 @@
+<h1 id="page-heading">Work Orders</h1>
+<h2 id="schedule-heading"><%= @work_orders_date %></h2>
+<div class="schedule">
+  <h2 class="time-slot" style="grid-row: time-0600;">6:00am</h2>
+  <h2 class="time-slot" style="grid-row: time-0700;">7:00am</h2>
+  <h2 class="time-slot" style="grid-row: time-0800;">8:00am</h2>
+  <h2 class="time-slot" style="grid-row: time-0900;">9:00am</h2>
+  <h2 class="time-slot" style="grid-row: time-1000;">10:00am</h2>
+  <h2 class="time-slot" style="grid-row: time-1100;">11:00am</h2>
+  <h2 class="time-slot" style="grid-row: time-1200;">12:00pm</h2>
+  <h2 class="time-slot" style="grid-row: time-1300;">1:00pm</h2>
+  <h2 class="time-slot" style="grid-row: time-1400;">2:00pm</h2>
+  <h2 class="time-slot" style="grid-row: time-1500;">3:00pm</h2>
+  <h2 class="time-slot" style="grid-row: time-1600;">4:00pm</h2>
+  <h2 class="time-slot" style="grid-row: time-1700;">5:00pm</h2>
+  <h2 class="time-slot" style="grid-row: time-1800;">6:00pm</h2>
+
+  <% @technicians.each_with_index do |technician, index_technician| %>
+    <span class="name-slot" style="grid-column: track-<%= technician.id.to_s %>; grid-row: name-headings;"><%= technician.name %></span>
+
+    <% work_orders_ordered = technician.work_orders.order("time ASC") %>
+
+    <% if work_orders_ordered.first.grid_start_time.to_i > 0600 %>
+      <div class="empty-slot" data-name="<%= technician.name %>" data-start="0600" data-end="<%= work_orders_ordered.first.grid_start_time %>" style="grid-column: track-<%= technician.id.to_s %>; grid-row: time-0600 / time-<%= work_orders_ordered.first.grid_start_time %>;">
+      </div>
+    <% end %>
+
+    <% work_orders_ordered.each_with_index do |work_order, index_work_order| %>
+
+      <% if index_work_order > 0 %>
+        <% prev_order_end_time = technician.work_orders.order("time ASC")[index_work_order - 1].end_time %>
+        <% work_order.time < prev_order_end_time ? transparent = true : transparent = false %>
+      <% else %>
+        <% transparent = false %>
+      <% end %>
+
+      <div class="session track-<%= work_order.technician_id.to_s %> <%= transparent ? "transparent" : "" %>" style="grid-column: track-<%= work_order.technician_id.to_s %>; grid-row: time-<%= work_order.grid_start_time %> / time-<%= work_order.grid_end_time %>;">
+        <h3 class="session-title"><%= work_order.location.name %> in <%= work_order.location.city %></h3>
+        <span class="session-time"><%= work_order.time.strftime("%-l:%M%P") %> - <%= work_order.end_time.strftime("%-l:%M%P") %></span>
+        <span class="session-duration"><%= work_order.duration %> minutes</span>
+        <span class="session-price">$<%= work_order.price %></span>
+      </div>
+
+      <% if index_work_order != work_orders_ordered.length - 1 %>
+        <% if work_order.grid_end_time.to_i < work_orders_ordered[index_work_order + 1].grid_start_time.to_i  %>
+          <div class="empty-slot" data-name="<%= work_order.technician.name %>" data-start="<%= work_order.grid_end_time %>" data-end="<%= work_orders_ordered[index_work_order + 1].grid_start_time %>" style="grid-column: track-<%= work_order.technician_id.to_s %>; grid-row: time-<%= work_order.grid_end_time %> / time-<%= work_orders_ordered[index_work_order + 1].grid_start_time %>;">
+          </div>
+        <% end %>
+      <% else %>
+        <div class="empty-slot" data-name="<%= work_order.technician.name %>" data-start="<%= work_order.grid_end_time %>" data-end="1800" style="grid-column: track-<%= work_order.technician_id.to_s %>; grid-row: time-<%= work_order.grid_end_time %> / time-1800;">
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
+
+<%= javascript_pack_tag 'schedule' %>
